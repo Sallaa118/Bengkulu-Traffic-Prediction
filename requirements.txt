@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pydantic
+osmnx
+folium
+geopy
+branca
+networkx
+numpy
+xgboost

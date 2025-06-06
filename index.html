@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bengkulu Smart Navigation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #D32F2F;
+      --primary-dark: #B71C1C;
+      --secondary: #FFC107;
+      --light: #F5F5F5;
+      --dark: #212121;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; 
+      padding: 0;
+      background-color: #f9f3f3;
+      color: #333;
+      background-image: url('https://images.unsplash.com/photo-1518562180175-34a163b1a9a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      background-blend-mode: overlay;
+      background-color: rgba(255, 255, 255, 0.85);
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 25px 20px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: relative;
+      border-bottom: 4px solid var(--secondary);
+    }
+    
+    header::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      right: 0;
+      height: 10px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%23D32F2F"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%23D32F2F"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23D32F2F"/></svg>');
+      background-size: cover;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .logo i {
+      color: var(--secondary);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+    
+    form {
+      padding: 25px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      position: relative;
+    }
+    
+    .input-group {
+      position: relative;
+      flex: 1;
+      min-width: 250px;
+    }
+    
+    .input-group i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary);
+    }
+    
+    input[type="text"] {
+      padding: 12px 15px 12px 45px;
+      font-size: 16px;
+      width: 100%;
+      border-radius: 8px;
+      border: 2px solid #e0e0e0;
+      transition: all 0.3s;
+      box-sizing: border-box;
+    }
+    
+    input[type="text"]:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2);
+      outline: none;
+    }
+    
+    button {
+      padding: 12px 25px;
+      font-size: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(211, 47, 47, 0.4);
+    }
+    
+    button:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    #status {
+      text-align: center;
+      margin-top: -15px;
+      margin-bottom: 15px;
+      font-size: 15px;
+      color: #555;
+      padding: 8px;
+      border-radius: 20px;
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .map-container {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e0e0e0;
+      height: 70vh;
+      margin: 0 25px 25px;
+    }
+    
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    
+    footer {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      text-align: center;
+      padding: 25px 20px;
+      font-size: 14px;
+      position: relative;
+    }
+    
+    footer::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 0;
+      right: 0;
+      height: 10px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%23D32F2F"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%23D32F2F"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23D32F2F"/></svg>');
+      background-size: cover;
+      transform: rotate(180deg);
+    }
+    
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .footer-logo {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 15px 0;
+    }
+    
+    .social-links a {
+      color: white;
+      background: rgba(255, 255, 255, 0.2);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    
+    .social-links a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+    
+    @media (max-width: 768px) {
+      header {
+        font-size: 22px;
+        padding: 20px 15px;
+      }
+      
+      .container {
+        margin: 20px auto;
+      }
+      
+      form {
+        padding: 20px 15px;
+      }
+      
+      .input-group {
+        min-width: 100%;
+      }
+      
+      button {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .map-container {
+        margin: 0 15px 15px;
+        height: 60vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class="fas fa-map-marked-alt"></i>
+      <span>Bengkulu SmartCity Navigation</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <form id="navForm">
+        <div class="input-group">
+          <i class="fas fa-map-marker-alt"></i>
+          <input type="text" id="start" placeholder="Lokasi Awal (Contoh: Jl. Sudirman)" required />
+        </div>
+        
+        <div class="input-group">
+          <i class="fas fa-flag-checkered"></i>
+          <input type="text" id="end" placeholder="Lokasi Tujuan (Contoh: Pantai Panjang)" required />
+        </div>
+        
+        <button type="submit" id="searchBtn">
+          <i class="fas fa-route"></i>
+          <span>Cari Rute</span>
+        </button>
+      </form>
+
+      <div style="text-align: center;">
+        <div id="status"></div>
+      </div>
+
+      <div class="map-container">
+        <iframe id="mapFrame" src="navigation_map.html"></iframe>
+      </div>
+    </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <i class="fas fa-map-marked-alt"></i>
+        <span>Bengkulu SmartCity</span>
+      </div>
+      
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+      
+      <p>© 2025 Sistem Navigasi Cerdas Kota Bengkulu</p>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById("navForm");
+    const startInput = document.getElementById("start");
+    const endInput = document.getElementById("end");
+    const statusDiv = document.getElementById("status");
+    const mapFrame = document.getElementById("mapFrame");
+    const searchBtn = document.getElementById("searchBtn");
+
+    // Add animation class when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelector('.card').style.opacity = '0';
+      document.querySelector('.card').style.transform = 'translateY(20px)';
+      document.querySelector('.card').style.transition = 'all 0.5s ease-out';
+      
+      setTimeout(() => {
+        document.querySelector('.card').style.opacity = '1';
+        document.querySelector('.card').style.transform = 'translateY(0)';
+      }, 100);
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const start = startInput.value.trim();
+      const end = endInput.value.trim();
+
+      if (!start || !end) {
+        showAlert("Harap isi kedua lokasi.", "error");
+        return;
+      }
+
+      statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses rute, harap tunggu...';
+      searchBtn.disabled = true;
+
+      try {
+        const response = await fetch("http://localhost:8001/generate-route", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            start_place: start,
+            end_place: end,
+          }),
+        });
+
+        const result = await response.text();
+
+        if (response.ok) {
+          // Jika sukses, reload iframe
+          mapFrame.src = "navigation_map.html?ts=" + new Date().getTime();
+          statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Rute berhasil dimuat.';
+          
+          // Add to history
+          addToSearchHistory(start, end);
+        } else {
+          showAlert(result.replace(/<[^>]*>/g, ""), "error");
+          statusDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Gagal memuat rute.';
+        }
+      } catch (err) {
+        showAlert("Terjadi kesalahan koneksi ke server.", "error");
+        console.error("Error:", err);
+        statusDiv.innerHTML = '<i class="fas fa-times-circle"></i> Gagal memproses rute.';
+      } finally {
+        searchBtn.disabled = false;
+      }
+    });
+    
+    function showAlert(message, type) {
+      const alertDiv = document.createElement('div');
+      alertDiv.style.position = 'fixed';
+      alertDiv.style.top = '20px';
+      alertDiv.style.right = '20px';
+      alertDiv.style.padding = '15px 20px';
+      alertDiv.style.backgroundColor = type === 'error' ? '#f44336' : '#4CAF50';
+      alertDiv.style.color = 'white';
+      alertDiv.style.borderRadius = '5px';
+      alertDiv.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+      alertDiv.style.zIndex = '1000';
+      alertDiv.style.animation = 'slideIn 0.5s, slideOut 0.5s 2.5s';
+      alertDiv.textContent = message;
+      
+      document.body.appendChild(alertDiv);
+      
+      setTimeout(() => {
+        alertDiv.remove();
+      }, 3000);
+    }
+    
+    function addToSearchHistory(start, end) {
+      // In a real app, you would save this to localStorage or send to a server
+      console.log(`Searched from ${start} to ${end}`);
+    }
+  </script>
+</body>
+</html>
