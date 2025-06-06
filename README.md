@@ -56,7 +56,7 @@ Model dilatih berdasarkan fitur panjang jalan (`length`) dan menyimpan hasilnya 
 ```
 ├── cache/                       # Folder penyimpanan cache (jika ada)
 ├── bengkulu.graphml             # Graph peta jalan OSM untuk Bengkulu
-├── index1.html                  # (Opsional) Halaman HTML manual (jika digunakan)
+├── index.html                  # (Opsional) Halaman HTML manual (jika digunakan)
 ├── navigation_map.html          # Output peta interaktif (hasil program)
 ├── requirements.txt             # Daftar dependency Python
 ├── smartcity_navigation.py      # Program utama (navigasi & prediksi)
@@ -84,6 +84,33 @@ Buka file `index.html` di browser untuk mencari rute dari lokasi awal ke lokasi 
 Tunggu peta dimuat dan menampilkan rute dan prediksi kemacetan di `index.html`.
 
 ---
+
+## Pengujian Aplikasi
+> Pengujian dilakukan dengan studi kasus yaitu melakukan pencarian rute dan prediksi kemacetan dari lokasi awal yaitu Lingkar Barat ke 10 Lokasi Tujuan yang berbeda
+<div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+
+  <img src="https://github.com/user-attachments/assets/1d0bc73d-0a58-49c0-a281-6bc6cabdf05a" width="180"/>
+  <img src="https://github.com/user-attachments/assets/935ac980-317d-4afe-9fe0-a020c5c194c8" width="180"/>
+  <img src="https://github.com/user-attachments/assets/12a89b2a-8032-46cd-81f8-b2c49735ad5a" width="180"/>
+  <img src="https://github.com/user-attachments/assets/26d2b358-e4ac-4e4e-a680-be4e3ca0e1c6" width="180"/>
+  <img src="https://github.com/user-attachments/assets/24748897-cc5b-46d7-a8fc-715f5615ad9e" width="180"/>
+
+  <img src="https://github.com/user-attachments/assets/ea0e205b-a567-4871-b531-5ecf7a876de6" width="180"/>
+  <img src="https://github.com/user-attachments/assets/11c1c0da-2041-442e-a8dc-a38fb7ddce90" width="180"/>
+  <img src="https://github.com/user-attachments/assets/9c58e844-8b18-47a0-ab7e-d4198c5dba53" width="180"/>
+  <img src="https://github.com/user-attachments/assets/4e942662-4f6d-436f-b3f9-fa875196d35b" width="180"/>
+  <img src="https://github.com/user-attachments/assets/264851f0-1eab-40d8-a3b0-2baf04190642" width="180"/>
+
+</div>
+
+> Pengujian selanjutnya membandingkan hasil output untuk `Rute dengan jarak terjauh`, `Rute tanpa prediksi kemacetan`, `Rute dengan prediksi kemacetan terpanjang`
+<div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+
+  <img src="https://github.com/user-attachments/assets/0e104d6d-f6c9-4240-a80f-af99af804592" width="250"/>
+  <img src="https://github.com/user-attachments/assets/935ac980-317d-4afe-9fe0-a020c5c194c8" width="250"/>
+  <img src="https://github.com/user-attachments/assets/0e104d6d-f6c9-4240-a80f-af99af804592" width="250"/>
+
+</div>
 
 ## 🧠 Evaluasi Model
 
